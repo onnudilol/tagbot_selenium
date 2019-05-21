@@ -9,10 +9,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 webdriver_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'chromedriver')
+chromium_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'headless-chromium')
 
 chrome_options = Options()
+chrome_options.binary_location = chromium_path
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--single-process')
+chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--window-size=1920x1080')
 
 

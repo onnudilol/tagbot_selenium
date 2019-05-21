@@ -16,7 +16,7 @@ pycares==3.0.0
 pycparser==2.19
 python-dotenv==0.10.2
 PyYAML==5.1
-selenium==3.141.0
+selenium==2.53.6
 slackclient==2.0.1
 soupsieve==1.9.1
 urllib3==1.25.2
