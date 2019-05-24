@@ -18,6 +18,15 @@ sites:
 
 Don't alter the directory structure or rename files, the docker image wants things in a very specific location.
 
+# Compatible versions
+```
+chromedriver 2.43
+severless-chrome 1.0.0-55
+selenium 3.14 (Python package)
+```
+
+See https://github.com/adieuadieu/serverless-chrome/issues/133
+
 # How to run locally
 * Build the image:
 `docker build -t slackspy .`
