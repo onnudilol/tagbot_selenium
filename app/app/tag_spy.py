@@ -2,6 +2,7 @@ import os
 import time
 from typing import Dict
 from urllib.parse import urlparse
+import re
 
 import yaml
 from bs4 import BeautifulSoup
@@ -9,14 +10,17 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 webdriver_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'chromedriver')
+# Disable for local dev
 chromium_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'headless-chromium')
 
 chrome_options = Options()
+# Disable for local dev
 chrome_options.binary_location = chromium_path
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--single-process')
 chrome_options.add_argument('--disable-dev-shm-usage')
+
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--window-size=1920x1080')
 
 
@@ -78,12 +82,13 @@ def scrape_site(url: str) -> Dict[str, str]:
     for site, data in js_conf.items():
 
         for script in data['scripts']:
-            if script in scripts:
+            script_re = re.compile(script)
+            if list(filter(script_re.search, scripts)):
                 matched_sites[data['name']] = data['homepage']
 
     return matched_sites
 
 
 if __name__ == '__main__':
-    sites = scrape_site('https://mossy.jp/')
-    print(sites)
+    matched_sites = scrape_site('https://www.cocacoca.jp/')
+    print(matched_sites)
